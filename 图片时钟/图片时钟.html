@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+            #box {
+               height: 210px;
+                overflow: hidden;
+                position: relative;
+            }
+             #box > div {
+                float: left;
+                position: relative;
+                left: 0;
+                top: 0;
+             }
+            #box img {
+                display: block;
+            }
+        </style>
+	</head>
+	<body>
+		 <div id="box">
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+            <div>
+                <img src="./img/fuh.png">
+            </div>
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+            <div>
+                <img src="./img/fuh.png">
+            </div>
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+            <div class ="run">
+                <img src="./img/1.png">
+                <img src="./img/2.png">
+            </div>
+        </div>
+	</body>
+	<script src="tools.js"></script>
+	<script>
+		//加零函数
+		function add(n){
+			return n<10 ? '0'+n : n;
+		}
+		//获取时间
+		var nowDate=new Date();
+		var h=add(nowDate.getHours());
+		var m=add(nowDate.getMinutes());
+		var s=add(nowDate.getSeconds());
+		var str=h+':'+m+':'+s;
+		console.log(str)
+		var divs=document.querySelectorAll('#box div');
+		for (var i = 0; i < str.length; i++) {
+			if (str[i]!==':') {
+				var src='img/'+str[i]+'.png';
+				divs[i].querySelector('img').src=src;
+			}
+		}
+		setInterval(function(){
+			var curDate=new Date();
+			var h2=add(curDate.getHours());
+			var m2=add(curDate.getMinutes());
+			var s2=add(curDate.getSeconds());
+			var curStr=h2+':'+m2+':'+s2;
+			console.log(curStr)
+			for (var i = 0; i < curStr.length; i++) {
+				if (curStr[i]!==str[i]) {
+					var curImg=divs[i].querySelectorAll('img');
+					curImg[0].src='img/'+str[i]+'.png';
+					curImg[1].src='img/'+curStr[i]+'.png';
+					css(divs[i],'top',0);
+					mTween({
+						el:divs[i],
+						attr:'top',
+						target:-210
+					})
+				}
+				if (curStr[i]===':') {
+					(function(i){
+						var fuh=divs[i].querySelector('img');
+						fuh.src='img/nfh.png';
+						setTimeout(function(){
+							fuh.src='img/fuh.png';
+						},500)
+					})(i);
+				}
+			}
+			str=curStr;
+		},1000)
+	</script>
+</html>
