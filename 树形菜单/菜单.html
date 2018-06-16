@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<!-- <ul>
+				<li>
+					<span>菜单1_1</span>
+					<ul>
+						<li>
+							<span>菜单2_1</span>
+						</li>
+						<li>
+							<span>菜单2_2</span>
+						</li>
+						<li>
+							<span>菜单2_3</span>
+							<ul>
+								<li>
+									<span>3_1</span>
+								</li>
+								<li>
+									<span>3_2</span>
+								</li>
+								<li>
+									<span>3_3</span>
+									<ul>
+										<li>
+											<span>4_1</span>
+										</li>
+										<li>
+											<span>4_2</span>
+										</li>
+										<li>
+											<span>4_3</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span>菜单1_2</span>
+					<ul>
+						<li>
+							<span>菜单2_1</span>
+						</li>
+						<li>
+							<span>菜单2_2</span>
+						</li>
+						<li>
+							<span>菜单2_3</span>
+						</li>
+					</ul>
+				</li>
+			</ul> -->
+		</div>
+		<script>
+			var list = [
+				{
+					title: '第一级菜单',
+					children: [
+						{
+							title: '第二级菜单',
+							children: [
+								{
+									title: '第三级菜单',
+										children: [
+									{
+										title: '第四级菜单'
+									},
+									{
+										title: '第四级菜单'
+									},
+									{
+										title: '第四级菜单'
+									}
+								]
+								},
+								{
+									title: '第三级菜单',
+										children: [
+									{
+										title: '第四级菜单'
+									},
+									{
+										title: '第四级菜单'
+									},
+									{
+										title: '第四级菜单'
+									}
+								]
+								},
+								{
+									title: '第三级菜单'
+								}
+							]
+						},
+						{
+							title: '第二级菜单',
+							children: [
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								}
+							]
+						},
+						{
+							title: '第二级菜单',
+							children: [
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								}
+							]
+						}
+					]
+				},
+				{
+					title: '第一级菜单',
+					children: [
+						{
+							title: '第二级菜单',
+							children: [
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								}
+							]
+						},
+						{
+							title: '第二级菜单'
+						},
+						{
+							title: '第二级菜单'
+						}
+					]
+				},
+				{
+					title: '第一级菜单',
+					children: [
+						{
+							title: '第二级菜单',
+							children: [
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								},
+								{
+									title: '第三级菜单'
+								}
+							]
+						},
+						{
+							title: '第二级菜单'
+						}
+					]
+				}
+			]
+//			<ul>
+//				<li>
+//					<span><span>
+//					<ul></ul>
+//				</li>
+//				<li>
+//					<span><span>
+//					<ul></ul>
+//				</li>
+//				<li>
+//					<span><span>
+//					<ul></ul>
+//				</li>
+//			</ul>
+			var box = document.getElementById('box');
+			function fn(list){
+				var html='<ul>';
+				for (var i = 0; i < list.length; i++) {
+					html+='<li><span>'+list[i].title+'</span>';
+					if (list[i].children) {
+						html+=fn(list[i].children)
+					}
+					html+='</li>';
+				}
+				html+='</ul>';
+				return html;
+			}
+			box.innerHTML=fn(list);
+		</script>
+	</body>
+</html>
