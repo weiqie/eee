@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 482px;
+				height: 592px;
+				border-radius: 60px;
+				background-color: paleturquoise;
+				padding: 100px 40px 0 40px;
+				box-sizing: border-box;
+			}
+			#box .price{
+				height: 40px;
+				margin-bottom: 20px;
+				background-color: plum;
+				line-height: 40px;
+			}
+			.price .dan{
+				margin-left: 100px;
+			}
+			#box .zuigui{
+				height: 40px;
+				line-height: 40px;
+				background-color: pink;
+			}
+			#box .zongji{
+				height: 40px;
+				line-height: 40px;
+				background-color: pink;
+			}
+			#box .ling{
+				background-color: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="box">
+			<div class="price">
+				<button>-</button>
+				<span class="geshu">0</span>
+				<button>+</button>
+				<span class="dan">单价：</span>
+				<span class="danjia">12.5元    小计：</span>
+				<span class="xiaoji">0元</span>
+			</div>
+			<div class="price">
+				<button>-</button>
+				<span class="geshu">0</span>
+				<button>+</button>
+				<span class="dan">单价：</span>
+				<span class="danjia">10.5元 小计：</span>
+				<span class="xiaoji">0元</span>
+			</div>
+			<div class="price">
+				<button>-</button>
+				<span class="geshu">0</span>
+				<button>+</button>
+				<span class="dan">单价：</span>
+				<span class="danjia">8.5元 小计：</span>
+				<span class="xiaoji">0元</span>
+			</div>
+			<div class="price">
+				<button>-</button>
+				<span class="geshu">0</span>
+				<button>+</button>
+				<span class="dan">单价：</span>
+				<span class="danjia">8元 小计：</span>
+				<span class="xiaoji">0元</span>
+			</div>
+			<div class="price">
+				<button>-</button>
+				<span class="geshu">0</span>
+				<button>+</button>
+				<span class="dan">单价：</span>
+				<span class="danjia">14.5元 小计：</span>
+				<span class="xiaoji">0元</span>
+			</div>
+			<div class="zongji">
+				<span>商品合计共：</span>
+				<span id="jian" class="ling">0</span>
+				<span>件</span>
+				<span>共花费了</span>
+				<span id="zongjia" class="ling">100</span>
+				<span>元</span>
+			</div>
+			<div class="zuigui">
+				<span>其中最贵的商品单价是：</span>
+				<span id="zuigui" class="ling">100</span>
+				<span>元</span>
+			</div>
+		</section>
+	</body>
+	<script>
+		var prices=document.querySelectorAll('.price');
+		var jian=document.getElementById('jian');
+		var zongJia=document.getElementById('zongjia');
+		var zuiGui=document.getElementById('zuigui');
+		var xiaoJI=document.querySelectorAll('.xiaoji');
+		var geShu=document.querySelectorAll('.geshu');
+		var danJia=document.querySelectorAll('.danjia');
+		console.log(danJia)
+		for (var i = 0; i < prices.length; i++) {
+			fn(prices[i]);
+		}
+		function fn(a){
+			var btns=a.querySelectorAll('button');
+			var spans=a.querySelectorAll('span');
+			//点击--
+			var n=0;//计算每件商品的个数
+			var q=0;//计算每件商品的小计
+			btns[0].onclick=function(){
+				if (n===0) {
+					return;
+				}
+				n--;
+				spans[0].innerText=n;
+				q=n*parseFloat(spans[2].innerText);
+				spans[3].innerText=q;
+				fn2();
+			}
+			//点击++
+			btns[1].onclick=function(){
+				n++;
+				spans[0].innerText=n;
+				q=n*parseFloat(spans[2].innerText);
+				spans[3].innerText=q;
+				fn2();
+			}
+		}
+		function fn2(){
+			var j=0;//总个数
+			var x=0;//总价
+			var max=0;//最大单价
+			for (var i = 0; i < xiaoJI.length; i++) {
+				j+=parseFloat(geShu[i].innerText);
+				x+=parseFloat(xiaoJI[i].innerText);
+				//如果商品的个数不等于0，才能比较最贵单价
+				if (geShu[i].innerText!=0) {
+					if (parseFloat(danJia[i].innerText)>max) {
+						max=parseFloat(danJia[i].innerText);
+					}
+				}
+			}
+			jian.innerText=j;
+			zongJia.innerText=x;
+			zuiGui.innerText=max;
+		}
+	</script>
+</html>
