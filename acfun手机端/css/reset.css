@@ -1,0 +1,19 @@
+body,h1,h3{
+	margin: 0;
+}
+a{
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+	color: #656565;
+}
+ul,ol{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+img{
+	vertical-align: top;
+}
+dl,dd{
+	margin: 0;
+}
