@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=[];
+		for (var i = 0; i < 50; i++) {
+			var n=Math.round(Math.random()*(1000-1)+1);
+			if (arr.indexOf(n)===-1) {
+				arr.push(n);
+			}else{
+				i--;
+			}
+		}
+		console.log(arr)
+	</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=[];
+		var obj={};
+//		for (;arr.length<50;) {
+//			var n=Math.round(Math.random()*(1000-1)+1);
+//			if (!obj[n]) {
+//				obj[n]=true;
+//				arr.push(n);
+//			}
+//		}
+	
+		while (arr.length<50){
+			var n=Math.round(Math.random()*(1000-1)+1);
+			if (!obj[n]) {
+				obj[n]=true;
+				arr.push(n);
+			}
+		}
+		console.log(arr);
+	</script>
+</html>

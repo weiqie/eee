@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var arr=[];
+		for (var i = 1; i <=1000; i++) {
+			arr.push(i);
+		}
+		arr.sort(function(){
+			return Math.random()-0.5;
+		})
+		console.log(arr.slice(0,50))
+	</script>
+</html>
