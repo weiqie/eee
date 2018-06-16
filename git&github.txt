@@ -1,0 +1,78 @@
+github 网站
+	托管代码的
+
+git 工具
+	分布式版本控制系统
+
+-----------------------------------------------
+git添加用户名和邮箱
+	用户名和邮箱和github保持一致
+
+git config --global user.name "github的名字"
+git config --global user.email github注册的邮箱
+
+
+https://github.com/WYseven
+--------------------------------------------
+git的使用
+
+创建文件夹，这个文件夹归git管理
+
+调出git的命令窗口，在文件夹右击会看待 'git bash here'
+
+git init
+	初始化，生成.git文件
+
+git 分区
+--------------------------------
+工作区 开发的文件目录
+缓存区 
+版本库
+
+
+git add ./file  添加到缓存区
+git commit -m 'log日志' 添加到版本库
+
+命令学习
+----------------
+git status 查看文件的状态
+
+----------------------------------------
+git链接github
+
+在本地生成私钥和公钥
+
+公钥给github使用
+
+1. 生成私钥和公钥
+	ssh-keygen -t rsa -C "github注册的邮箱"
+	一路回车 生成ssh
+	找到子级c盘的.ssh目录
+
+	id_rsa  私钥
+	id_rsa.pub 公钥
+
+	把id_rsa.pub 公钥内容给到github
+
+2. 添加ssh公钥到github
+	参考配图
+
+3. 测试链接是否成功
+	ssh -T git@github.com 
+	中间循环的，填yes就可以
+	看到 hi，你的用户，就成功了
+
+4. 把本地的版本库的代码上传到github的某个仓库
+
+	参看配图去新建仓库
+
+	在本地的项目中使用
+		git add .
+		git commit -m 'log日志'
+		// 添加远程的仓库地址（只需要写一次）
+		git remote add origin git@github.com:WYseven/test-05-06.git
+		git push origin master //上传文件
+
+5. 克隆别人的代码到本地
+		git clone 别人代码仓库地址
+

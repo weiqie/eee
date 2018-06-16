@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        #wrap{
+            width: 760px;
+            height: 590px;
+            margin: 50px auto;
+            background: url(imgs/bg.png);
+            overflow: hidden;
+        }
+        section{
+            width: 420px;
+            height: 320px;
+            border: 3px solid #fff;
+            margin: 173px auto 0;
+            overflow: hidden;
+            position: relative;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            width: 2100px;
+            position: absolute;
+            left: 0;
+            -transition: .5s;
+        }
+        li{
+            list-style: none;
+            float: left;
+            position: relative;
+        }
+        img{
+            vertical-align: top;
+            width: 420px;
+            height: 320px;
+        }
+        a{
+            text-decoration: none;
+        }
+        #prev,#next{
+            width: 49px;
+            height: 63px;
+            line-height: 63px;
+            color: #fff;
+            font-size: 50px;
+            text-align: center;
+            background: black;
+            opacity: .5;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        #prev{
+            left: 0;
+        }
+        #next{
+            right: 0;
+        }
+        nav{
+            position: absolute;
+            bottom: 16px;
+            text-align: center;
+            width: 100%;
+        }
+        nav a{
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            margin: 0 5px;
+            display: inline-block;
+            transition: .3s;
+        }
+        nav .active{
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <section>
+            <ul id="banner">
+                <li><img src="imgs/1.jpg" /></li>
+                <li><img src="imgs/2.jpg" /></li>
+                <li><img src="imgs/3.jpg" /></li>
+                <li><img src="imgs/4.jpg" /></li>
+                <li><img src="imgs/5.jpg" /></li>
+                <li><img src="imgs/1.jpg" /></li>
+            </ul>
+            <a href="javascript:;" id="prev">&lt;</a><a href="javascript:;" id="next">&gt;</a>
+            <nav>
+                <a href="javascript:;" class="active"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+            </nav>
+        </section>
+    </div>
+    <script src="./tools.js"></script>
+    <script type="text/javascript">
+        var next = document.querySelector('#next');
+        var banner = document.querySelector('#banner');
+        var lis = banner.querySelectorAll('li');
+		var prev=document.querySelector('#prev');
+        var oneW = parseFloat(css(lis[0],'width'));
+        var len = lis.length;
+		var navAs=document.querySelectorAll('nav a');
+		console.log(navAs)
+        css(banner,'width',len * oneW);
+		var m=0;//记录切换到的a标签
+        var n = 0; // 记录切换到的图片
+
+        // 点击右边按钮，向左切换
+        next.onclick = function (){
+            if(banner['timer_left']) return;
+            //每次点击，在m++之前先让a标签上一个的高度降低，调运妙豚函数，当m++后让当前的a标签高度增加
+            mTween({
+            	el:navAs[m],
+            	target:10,
+            	attr:'height',
+            	duration:100
+            })
+            m++;
+            //m大于a标签的个数减一时让m=0
+            if (m>navAs.length-1) {
+            	m=0;
+            };
+            mTween({
+            	el:navAs[m],
+            	target:20,
+            	attr:'height',
+            	duration:100
+            })
+            n++;
+            // 如果n超过了len-1，说明后面没有图片了，调用css函数让banner的left瞬间为0
+            if(n > len-1){
+            	css(banner,'left', 0);
+                n  = 1;
+            }
+            mTween({
+                el: banner,
+                target: -n * oneW,
+                attr: 'left'
+            })   
+        }
+        //点击左边按钮，向左切换
+		prev.onclick=function(){
+			if(banner['timer_left']) return;
+			n--;
+			//如果n<0时，让它瞬间到最后一张
+			if (n<0) {
+				css(banner,'left',-(len-1)*oneW)
+				n=len-2;
+			}
+			mTween({
+				el:banner,
+				target:-n*oneW,
+				attr:'left'
+			})
+			mTween({
+            	el:navAs[m],
+            	target:10,
+            	attr:'height',
+            	duration:100
+            })
+            m--;
+            if (m<0) {
+            	m=navAs.length-1;
+            }
+            mTween({
+            	el:navAs[m],
+            	target:20,
+            	attr:'height',
+            	duration:100
+            })
+		}
+
+    </script>
+</body>
+</html>
