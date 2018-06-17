@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 600px;
+				height: 600px;
+				background-color: skyblue;
+				margin: 0 auto;
+				font: 30px/60px "微软雅黑";
+			}
+			#box .left{
+				width: 250px;
+				float: left;
+			}
+			#box .middle{
+				width: 100px;
+				float: left;
+			}
+			.middle button{
+				margin-top: 40px;
+				background-color: palegreen;
+			}
+			#box .right{
+				width: 250px;
+				float: left;
+			}
+			.blue{
+				background-color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="box">
+			<div class="left">
+				<ul class="left-list">
+					<li>小程序</li>
+					<li>Jquery</li>
+					<li>ALAX</li>
+					<li>Js-基础2</li>
+					<li>移动端实践</li>
+				</ul>
+			</div>
+			<div class="middle">
+				<button><向左</button>
+				<button>>向右</button>
+			</div>
+			<div class="right">
+				<ul class="right-list">
+					<li>Node</li>
+					<li>ECMA6</li>
+					<li>React</li>
+					<li>面向对象-中</li>
+					<li>JS-基础1</li>
+				</ul>
+			</div>
+		</section>
+	</body>
+	<script>
+		var leftLi=document.querySelectorAll('.left li');
+		var leftList=document.querySelector('.left .left-list')
+		var rightLi=document.querySelectorAll('.right li');
+		var rightList=document.querySelector('.right .right-list')
+		var btns=document.querySelectorAll('.middle button');
+		for (var i = 0; i < leftLi.length; i++) {
+			leftLi[i].onclick=function(){
+				this.classList.toggle('blue');
+			}
+		}
+		btns[1].onclick=function(){
+//			var rightLi=document.querySelectorAll('.right li');
+//			var rightList=document.querySelector('.right .right-list')
+			var leftLi=document.querySelectorAll('.left li');
+			var leftList=document.querySelector('.left .left-list')
+			for (var i = 0; i < leftLi.length; i++) {
+				if (leftLi[i].classList.contains('blue')) {
+					rightList.insertBefore(leftLi[i],rightList.firstElementChild);
+					leftLi[i].classList.remove('blue');
+				}
+			}
+		}
+		for (var i = 0; i < rightLi.length; i++) {
+			rightLi[i].onclick=function(){
+				this.classList.toggle('blue');
+			}
+		}
+		btns[0].onclick=function(){
+			var rightLi=document.querySelectorAll('.right li');
+			var rightList=document.querySelector('.right .right-list')
+//			var leftLi=document.querySelectorAll('.left li');
+//			var leftList=document.querySelector('.left .left-list');
+			for (var i = 0; i < rightLi.length; i++) {
+				if (rightLi[i].classList.contains('blue')) {
+					leftList.insertBefore(rightLi[i],leftList.firstElementChild);
+					rightLi[i].classList.remove('blue');
+				}
+			}
+		}
+		
+	</script>
+</html>

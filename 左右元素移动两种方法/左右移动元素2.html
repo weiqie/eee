@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 600px;
+				height: 600px;
+				background-color: skyblue;
+				margin: 0 auto;
+				font: 30px/60px "微软雅黑";
+			}
+			#box .left{
+				width: 250px;
+				float: left;
+			}
+			#box .middle{
+				width: 100px;
+				float: left;
+			}
+			.middle button{
+				margin-top: 40px;
+				background-color: palegreen;
+			}
+			#box .right{
+				width: 250px;
+				float: left;
+			}
+			.blue{
+				background-color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="box">
+			<div class="left">
+				<ul class="left-list">
+					<li>小程序</li>
+					<li>Jquery</li>
+					<li>ALAX</li>
+					<li>Js-基础2</li>
+					<li>移动端实践</li>
+				</ul>
+			</div>
+			<div class="middle">
+				<button class="leftb"><向左</button>
+				<button class="rightb">>向右</button>
+			</div>
+			<div class="right">
+				<ul class="right-list">
+					<li>Node</li>
+					<li>ECMA6</li>
+					<li>React</li>
+					<li>面向对象-中</li>
+					<li>JS-基础1</li>
+				</ul>
+			</div>
+		</section>
+	</body>
+	<script src="jquery-3.3.1.js"></script>
+	<script>
+		$('.left li').click(function(){
+			$(this).toggleClass('blue');
+		})
+		$('.middle .rightb').click(function(){
+			$('.left .blue').insertBefore($('.right li')[0]).removeClass('blue');
+		})
+		$('.right li').click(function(){
+			$(this).toggleClass('blue');
+		})
+		$('.middle .leftb').click(function(){
+			$('.right .blue').insertBefore($('.left li')[0]).removeClass('blue');
+		})
+	</script>
+</html>
