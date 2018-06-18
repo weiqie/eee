@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+	</head>
+	<script>
+		function addZero(n){
+			return n < 10 ? '0' + n : n;
+		}
+		// 获取一个月有多少天
+		function getMonthDate(year,month){  // month 按照人的习惯
+			var d = new Date();
+			d.setFullYear(year);
+			d.setMonth(month,0);  // 推到下个月
+//			d.setDate(0);
+			return d.getDate();
+		}
+
+		function getMonthFirstDayWeek(year,month){ // month 按照人的习惯
+			var d = new Date();
+			d.setFullYear(year);
+			d.setMonth(month-1,1);	
+//			d.setDate(1);
+			return d.getDay();
+		}
+	</script>
+	<body>
+		<div id="calendar">
+			<div class="left-datas">
+				<div class="datas-select-header">
+					<div class="datas-year">
+						<select>
+							<option>1990年</option>
+							<option>1990</option>
+							<option>1990</option>
+							<option>1990</option>
+							<option>1990</option>
+						</select>
+					</div>
+					<div class="datas-month">
+						<button><</button>
+						<select>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+						<button>></button>
+					</div>
+					<button>返回今天</button>
+				</div>
+				<div class="datas-mian">
+					<div class="datas-header">
+						<span>一</span>
+						<span>二</span>
+						<span>三</span>
+						<span>四</span>
+						<span>五</span>
+						<span>六</span>
+						<span>日</span>
+					</div>
+					<div class="datas-content">
+						<!-- <span class="current-date">1</span>
+						<span class="other-date">2</span> -->
+						
+					</div>
+				</div>
+			</div>
+			<div class="right-show" style="background-color: palegreen;">
+				<p class="current-ymd">2018-05-28 星期一</p>
+				<div class="current-data-box">
+					<p class="current-data">28</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			/*
+				1. 展示当年当月当天的
+					new Date();
+				2. 调整年月日，展示
+					setFullYear()
+					setMonth()
+					setDate()
+
+					getFullYear()
+			*/
+			// 右侧存放当天信息的容器
+			(function (){
+				var currentYmd = document.querySelector('.current-ymd');
+				var currentData = document.querySelector('.current-data')
+
+				var weekInfo = ['日','一','二','三','四','五','六']
+
+				// 先做右边，展示当天的信息
+
+				var dRight = new Date();
+
+				var year = dRight.getFullYear();
+				var month = dRight.getMonth()+1;
+				var date = dRight.getDate();
+				var day = dRight.getDay();
+
+				var currentDateInfo = year + "-" + addZero(month) + '-' + addZero(date)+ ' 星期' + weekInfo[day];
+				currentYmd.innerHTML = currentDateInfo;
+				currentData.innerHTML = date;	
+			})();
+
+			// 左侧，展示日历数据的容器
+			var datasContent = document.querySelector('.datas-content')
+
+			// month 按照人的习惯传入
+			function render(year,month,date){
+				var d = new Date(year,month-1,date);
+				var year = d.getFullYear(); // 现在年
+				var month = d.getMonth(); // 现在月
+				var date = d.getDate(); // 现在日
+				currentMonth=month+1;//更新一下月份,点击时
+				currentYear=year;
+				console.log(currentYear)
+				var firstDate = getMonthFirstDayWeek(year,month+1)
+				var sdates=getMonthDate(year,month);//上月的天数
+				console.log(sdates)
+				// 处理周日
+				firstDate = firstDate === 0 ? 7 : firstDate;
+				var prevHtml = '';
+				for( var i=sdates-firstDate+2; i<=sdates;i++ ){
+					prevHtml += '<span class="other-date">'+i+'</span>';
+				}
+
+				// 知道这个月有多少天
+				var dates = getMonthDate(year,month+1);
+				// 根据天数，生成span
+				var str = '';
+				for( var i = 1; i <= dates; i++ ){
+					if(i === date){
+						str += '<span class="current-date">'+i+'</span>'
+					}else{
+						str += '<span>'+i+'</span>'
+					}
+					
+				}
+
+				// 3. 后面补span  6行7列 = 42个
+				var lastNums = 42 -  dates - (firstDate - 1);
+				var lastHtml = '';
+				for( var i = 1; i <= lastNums; i++ ){
+					lastHtml += '<span class="other-date">'+i+'</span>'
+				}
+
+				datasContent.innerHTML = prevHtml + str + lastHtml;
+			}
+
+			// 初始渲染当年当月当日
+			var d = new Date();
+
+			var currentYear = d.getFullYear()
+			var currentMonth = d.getMonth()+1;
+			var currentDate = d.getDate()
+
+
+			render(currentYear,currentMonth,currentDate)
+			var sels=document.querySelectorAll('select');
+			var btns=document.querySelectorAll('button');
+			var yue='';//渲染下拉框月份
+			for (var i = 1; i <=12; i++) {
+				yue+='<option>' +i+'月</option>';
+			}
+			sels[1].innerHTML=yue;
+			sels[1].selectedIndex=currentMonth-1;
+			btns[0].onclick=function(){//点击左按钮，月份减少，相对应的下标为传入的月份-1；
+				currentMonth--;
+				render(currentYear,currentMonth,1);
+				sels[1].selectedIndex=currentMonth-1;
+				sels[0].selectedIndex=currentYear-1990;
+			}
+			btns[1].onclick=function(){
+				currentMonth++;
+				render(currentYear,currentMonth,1);
+				sels[1].selectedIndex=currentMonth-1;
+				sels[0].selectedIndex=currentYear-1990;
+			}
+			sels[1].onchange=function(){//选择月份
+				currentMonth=parseInt(this.value);
+				render(currentYear,currentMonth,1);
+			}
+//			console.log(sels);
+			var nian='';//渲染下拉框年份
+			var index=0;
+			for (var i = 1990; i<=2020; i++) {
+				if (currentYear===i) {
+					index=i-1990;
+				}
+				nian+='<option>'+i+'年</option>';
+			}
+			sels[0].onchange=function(){//选择年份
+				currentYear=parseInt(this.value);
+				render(currentYear,currentMonth,1);
+			}
+			sels[0].innerHTML=nian;
+			sels[0].selectedIndex=index;
+			btns[2].onclick=function(){//重置为当天
+				var d=new Date();
+				currentYear=d.getFullYear();
+				currentMonth=d.getMonth()+1;
+				currentDate=d.getDate();
+				sels[1].selectedIndex=currentMonth-1;
+				sels[0].selectedIndex=currentYear-1990;
+				render(currentYear,currentMonth,currentDate);
+			}
+		</script>
+	</body>
+</html>
