@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var o={
+			a:1,
+			b:2,
+			c:3,
+			d:[1,2,3,4,5]
+		}
+		//浅拷贝
+//		var o2=o;
+//		o2.d=100;
+//		console.log(o)
+//		console.log(o2);
+		var newO={};
+		for(var attr in o){
+			//先必须规定是在自身的对象的属性上遍历
+			if (o.hasOwnProperty(attr)) {
+				if (o[attr] instanceof Array) {
+					var newArr=[];
+					//遍历找到的数组，把值赋值给新数组
+					for (var i = 0; i < o[attr].length; i++) {
+						newArr[i]=o[attr][i];
+					}
+					newO[attr]=newArr;
+				}else{
+					newO[attr]=o[attr];
+				}
+			}
+		}
+		newO.d.push(1000)
+		console.log(o);
+		console.log(newO);
+		
+	</script>
+</html>

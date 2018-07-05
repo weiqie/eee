@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var o = {
+				a:1,
+				b: [1,2,3,4,5],
+				c: {
+					d: 2,
+					f: {
+						arr: [4,5,6,7,7]
+					}
+				}
+			}
+		function deepClone(obj){
+			var newObj=obj instanceof Array ? [] :{};
+			for(var attr in obj){
+				if (typeof obj[attr]==='object'&&obj[attr]!==null) {
+					newObj[attr]=deepClone(obj[attr])
+				}else{
+					newObj[attr]=obj[attr];
+				}
+			}
+			return newObj;
+		}
+		var newo=deepClone(o)
+		newo.b.push(1000)
+		console.log(o)
+		console.log(newo)
+	</script>
+</html>
